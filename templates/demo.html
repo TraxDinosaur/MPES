@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Player Embed Demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/feather-icons/dist/feather.min.css">
+    <style>
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .hero-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 3rem;
+            margin: 2rem 0;
+        }
+        
+        .feature-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.15);
+        }
+        
+        .code-block {
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 1rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+        
+        .demo-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .embed-demo {
+            max-width: 800px;
+            margin: 2rem auto;
+        }
+        
+        h1, h2, h3 {
+            color: white;
+        }
+        
+        .btn-custom {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            color: white;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-custom:hover {
+            background: rgba(255, 255, 255, 0.3);
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .theme-selector {
+            padding: 1rem;
+        }
+        
+        .theme-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 12px;
+            color: white;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 80px;
+        }
+        
+        .theme-btn:hover {
+            transform: translateY(-3px);
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.4);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .theme-btn.active {
+            border-color: rgba(255, 255, 255, 0.8);
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+        
+        .theme-preview {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+        
+        .theme-btn:hover .theme-preview {
+            border-color: rgba(255, 255, 255, 0.6);
+            transform: scale(1.1);
+        }
+        
+        .theme-btn.active .theme-preview {
+            border-color: rgba(255, 255, 255, 0.8);
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Hero Section -->
+        <div class="hero-section text-center">
+            <h1 class="display-4 fw-bold mb-4">
+                <i data-feather="play-circle" class="me-3"></i>
+                Media Player Embed System
+            </h1>
+            <p class="lead mb-4">
+                A powerful, Material You-inspired video player that embeds seamlessly into any website with a simple script tag.
+            </p>
+            <div class="d-flex justify-content-center gap-3">
+                <button class="btn btn-custom btn-lg" onclick="scrollToDemo()">
+                    <i data-feather="play" class="me-2"></i>
+                    Try Demo
+                </button>
+                <button class="btn btn-custom btn-lg" onclick="scrollToUsage()">
+                    <i data-feather="code" class="me-2"></i>
+                    View Code
+                </button>
+            </div>
+        </div>
+
+        <!-- Features Section -->
+        <div class="row">
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="text-center mb-3">
+                        <i data-feather="smartphone" style="width: 48px; height: 48px;"></i>
+                    </div>
+                    <h5>Advanced Gestures</h5>
+                    <p class="mb-0">Double-tap to seek, hold for 2x speed, swipe for volume and brightness control.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="text-center mb-3">
+                        <i data-feather="shield" style="width: 48px; height: 48px;"></i>
+                    </div>
+                    <h5>Secure & Protected</h5>
+                    <p class="mb-0">Video URLs are obfuscated and protected from scraping with referrer checks.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="text-center mb-3">
+                        <i data-feather="layers" style="width: 48px; height: 48px;"></i>
+                    </div>
+                    <h5>Material You Design</h5>
+                    <p class="mb-0">Beautiful glass morphism effects with responsive design across all devices.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="text-center mb-3">
+                        <i data-feather="zap" style="width: 48px; height: 48px;"></i>
+                    </div>
+                    <h5>Easy Integration</h5>
+                    <p class="mb-0">Just add a script tag with your video URL. No complex setup required.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="text-center mb-3">
+                        <i data-feather="monitor" style="width: 48px; height: 48px;"></i>
+                    </div>
+                    <h5>Cross-Platform</h5>
+                    <p class="mb-0">Works perfectly on desktop, mobile, and tablet with touch and keyboard controls.</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="feature-card">
+                    <div class="text-center mb-3">
+                        <i data-feather="server" style="width: 48px; height: 48px;"></i>
+                    </div>
+                    <h5>Serverless Ready</h5>
+                    <p class="mb-0">Stateless design works on Netlify, Vercel, and other serverless platforms.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Theme Selector -->
+        <div class="demo-container">
+            <h2 class="text-center mb-4">
+                <i data-feather="droplet" class="me-2"></i>
+                Choose Your Material You Theme
+            </h2>
+            <p class="text-center text-white mb-4">
+                Click any color to transform the entire UI with that Material You theme.
+            </p>
+            
+            <div class="theme-selector d-flex justify-content-center flex-wrap gap-3 mb-4">
+                <button class="theme-btn active" data-theme="default" data-primary="#667eea" data-accent="#764ba2" title="Ocean Gradient">
+                    <div class="theme-preview" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
+                    <span>Ocean</span>
+                </button>
+                <button class="theme-btn" data-theme="sunset" data-primary="#ff6b35" data-accent="#f7931e" title="Sunset Orange">
+                    <div class="theme-preview" style="background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);"></div>
+                    <span>Sunset</span>
+                </button>
+                <button class="theme-btn" data-theme="forest" data-primary="#2d5a27" data-accent="#4a7c59" title="Forest Green">
+                    <div class="theme-preview" style="background: linear-gradient(135deg, #2d5a27 0%, #4a7c59 100%);"></div>
+                    <span>Forest</span>
+                </button>
+                <button class="theme-btn" data-theme="royal" data-primary="#6a4c93" data-accent="#c06c84" title="Royal Purple">
+                    <div class="theme-preview" style="background: linear-gradient(135deg, #6a4c93 0%, #c06c84 100%);"></div>
+                    <span>Royal</span>
+                </button>
+                <button class="theme-btn" data-theme="ocean" data-primary="#0077be" data-accent="#00a8cc" title="Ocean Blue">
+                    <div class="theme-preview" style="background: linear-gradient(135deg, #0077be 0%, #00a8cc 100%);"></div>
+                    <span>Ocean</span>
+                </button>
+                <button class="theme-btn" data-theme="cherry" data-primary="#e74c3c" data-accent="#f39c12" title="Cherry Red">
+                    <div class="theme-preview" style="background: linear-gradient(135deg, #e74c3c 0%, #f39c12 100%);"></div>
+                    <span>Cherry</span>
+                </button>
+                <button class="theme-btn" data-theme="mint" data-primary="#1abc9c" data-accent="#2ecc71" title="Mint Green">
+                    <div class="theme-preview" style="background: linear-gradient(135deg, #1abc9c 0%, #2ecc71 100%);"></div>
+                    <span>Mint</span>
+                </button>
+                <button class="theme-btn" data-theme="lavender" data-primary="#9b59b6" data-accent="#8e44ad" title="Lavender Purple">
+                    <div class="theme-preview" style="background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);"></div>
+                    <span>Lavender</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Demo Section -->
+        <div class="demo-container" id="demo-section">
+            <h2 class="text-center mb-4">
+                <i data-feather="play" class="me-2"></i>
+                Live Demo
+            </h2>
+            <p class="text-center text-white mb-4">
+                Experience the player in action with gesture controls, Material You design, and advanced features.
+            </p>
+            
+            <div class="embed-demo">
+                <!-- This is where the embedded player will appear -->
+                <script src="/player.js" 
+                        data-src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
+                        data-primary="#667eea"
+                        data-accent="#764ba2"
+                        data-surface="rgba(255, 255, 255, 0.15)"></script>
+            </div>
+            
+            <div class="text-center mt-4">
+                <p class="text-white-50">
+                    <i data-feather="info" class="me-1"></i>
+                    Try double-tapping the sides to seek, holding for 2x speed, or swiping up/down for volume/brightness
+                </p>
+            </div>
+        </div>
+
+        <!-- Usage Section -->
+        <div class="demo-container" id="usage-section">
+            <h2 class="mb-4">
+                <i data-feather="code" class="me-2"></i>
+                How to Use
+            </h2>
+            
+            <h4 class="text-white mb-3">1. Basic Embed</h4>
+            <p class="text-white-50">Simply add this script tag to your HTML:</p>
+            <div class="code-block">
+                <code class="text-warning">
+                    &lt;script src="https://mpestrax.vercel.app/player.js" data-src="https://example.com/video.mp4"&gt;&lt;/script&gt;
+                </code>
+            </div>
+            
+            <h4 class="text-white mb-3 mt-4">2. With Custom Container</h4>
+            <p class="text-white-50">Wrap in a container to control size:</p>
+            <div class="code-block">
+                <code class="text-warning">
+                    &lt;div style="max-width: 800px; margin: 0 auto;"&gt;<br>
+                    &nbsp;&nbsp;&lt;script src="https://mpestrax.vercel.app/player.js" data-src="https://example.com/video.mp4"&gt;&lt;/script&gt;<br>
+                    &lt;/div&gt;
+                </code>
+            </div>
+            
+            <h4 class="text-white mb-3 mt-4">3. Custom Colors</h4>
+            <p class="text-white-50">Customize the player theme with your brand colors:</p>
+            <div class="code-block">
+                <code class="text-warning">
+                    &lt;script src="https://mpestrax.vercel.app/player.js"<br>
+                    &nbsp;&nbsp;data-src="https://example.com/video.mp4"<br>
+                    &nbsp;&nbsp;data-primary="#ff6b6b"<br>
+                    &nbsp;&nbsp;data-accent="#4ecdc4"<br>
+                    &nbsp;&nbsp;data-surface="rgba(255, 255, 255, 0.2)"<br>
+                    &nbsp;&nbsp;data-text="#ffffff"<br>
+                    &nbsp;&nbsp;data-outline="rgba(255, 255, 255, 0.3)"&gt;&lt;/script&gt;
+                </code>
+            </div>
+            
+            <h4 class="text-white mb-3 mt-4">4. Multiple Players</h4>
+            <p class="text-white-50">Add multiple players with different themes:</p>
+            <div class="code-block">
+                <code class="text-warning">
+                    &lt;script src="https://mpestrax.vercel.app/player.js" data-src="video1.mp4" data-primary="#e74c3c"&gt;&lt;/script&gt;<br>
+                    &lt;script src="https://mpestrax.vercel.app/player.js" data-src="video2.mp4" data-primary="#3498db"&gt;&lt;/script&gt;
+                </code>
+            </div>
+        </div>
+
+        <!-- Color Customization -->
+        <div class="demo-container">
+            <h2 class="mb-4">
+                <i data-feather="droplet" class="me-2"></i>
+                Color Customization
+            </h2>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="text-white mb-3">Available Color Attributes</h5>
+                    <ul class="text-white-50">
+                        <li><code>data-primary</code> - Main accent color (progress bars, buttons)</li>
+                        <li><code>data-accent</code> - Secondary accent color (gradients)</li>
+                        <li><code>data-surface</code> - Background surface color</li>
+                        <li><code>data-text</code> - Text color</li>
+                        <li><code>data-outline</code> - Border and outline color</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="text-white mb-3">Popular Color Schemes</h5>
+                    <div class="text-white-50">
+                        <p><strong>Ocean Blue:</strong> <code>data-primary="#0077be"</code></p>
+                        <p><strong>Sunset Orange:</strong> <code>data-primary="#ff6b35"</code></p>
+                        <p><strong>Forest Green:</strong> <code>data-primary="#2d5a27"</code></p>
+                        <p><strong>Royal Purple:</strong> <code>data-primary="#6a4c93"</code></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Controls Guide -->
+        <div class="demo-container">
+            <h2 class="mb-4">
+                <i data-feather="settings" class="me-2"></i>
+                Controls Guide
+            </h2>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <h5 class="text-white mb-3">
+                        <i data-feather="mouse-pointer" class="me-2"></i>
+                        Mouse Controls
+                    </h5>
+                    <ul class="text-white-50">
+                        <li>Click play/pause button or spacebar</li>
+                        <li>Click progress bar to seek</li>
+                        <li>Hover volume button to show slider</li>
+                        <li>Click fullscreen button or press F</li>
+                        <li>Use arrow keys for seek/volume</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h5 class="text-white mb-3">
+                        <i data-feather="smartphone" class="me-2"></i>
+                        Touch Controls
+                    </h5>
+                    <ul class="text-white-50">
+                        <li>Double-tap sides to seek ±10s</li>
+                        <li>Hold anywhere for 2x speed</li>
+                        <li>Swipe left side for brightness</li>
+                        <li>Swipe right side for volume</li>
+                        <li>Single tap to show/hide controls</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="text-center py-4">
+            <p class="text-white-50 mb-2">
+                <i data-feather="heart" class="me-1"></i>
+                Built with Material You design principles and modern web technologies
+            </p>
+            <p class="text-white-50 mb-0">
+                <i data-feather="code" class="me-1"></i>
+                Created by <a href="https://traxdinosaur.github.io" target="_blank" class="text-white text-decoration-none">TraxDinosaur</a>
+            </p>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script>
+        feather.replace();
+        
+        function scrollToDemo() {
+            document.getElementById('demo-section').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        function scrollToUsage() {
+            document.getElementById('usage-section').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Theme changing functionality
+        function applyTheme(primary, accent) {
+            // Update body background
+            document.body.style.background = `linear-gradient(135deg, ${primary} 0%, ${accent} 100%)`;
+            
+            // Update all glassmorphism elements
+            const glassElements = document.querySelectorAll('.hero-section, .feature-card, .demo-container, .btn-custom');
+            glassElements.forEach(element => {
+                element.style.background = `rgba(255, 255, 255, 0.1)`;
+                element.style.borderColor = `rgba(255, 255, 255, 0.2)`;
+            });
+            
+            // Update hover effects dynamically
+            const style = document.createElement('style');
+            style.id = 'dynamic-theme';
+            
+            // Remove existing dynamic theme
+            const existingStyle = document.getElementById('dynamic-theme');
+            if (existingStyle) {
+                existingStyle.remove();
+            }
+            
+            style.textContent = `
+                .feature-card:hover {
+                    background: rgba(255, 255, 255, 0.15) !important;
+                    box-shadow: 0 8px 32px rgba(${hexToRgb(primary)}, 0.3) !important;
+                }
+                
+                .btn-custom:hover {
+                    background: rgba(255, 255, 255, 0.3) !important;
+                    box-shadow: 0 5px 20px rgba(${hexToRgb(accent)}, 0.4) !important;
+                }
+                
+                .theme-btn:hover {
+                    box-shadow: 0 8px 25px rgba(${hexToRgb(primary)}, 0.3) !important;
+                }
+                
+                .hero-section {
+                    box-shadow: 0 20px 60px rgba(${hexToRgb(primary)}, 0.2) !important;
+                }
+                
+                .demo-container, .feature-card {
+                    border-image: linear-gradient(135deg, ${primary}20, ${accent}20) 1 !important;
+                }
+                
+                .code-block {
+                    background: rgba(0, 0, 0, 0.3) !important;
+                    border: 1px solid rgba(${hexToRgb(primary)}, 0.3) !important;
+                }
+            `;
+            
+            document.head.appendChild(style);
+            
+            // Update the video player if it exists
+            updateVideoPlayerTheme(primary, accent);
+        }
+        
+        function hexToRgb(hex) {
+            const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+            return result ? 
+                parseInt(result[1], 16) + ', ' + parseInt(result[2], 16) + ', ' + parseInt(result[3], 16) :
+                '255, 255, 255';
+        }
+        
+        function updateVideoPlayerTheme(primary, accent) {
+            // Find the player script and update its attributes
+            const playerScript = document.querySelector('script[data-src]');
+            if (playerScript) {
+                playerScript.setAttribute('data-primary', primary);
+                playerScript.setAttribute('data-accent', accent);
+                playerScript.setAttribute('data-surface', 'rgba(255, 255, 255, 0.15)');
+                
+                // If player is already loaded, we need to update its colors dynamically
+                const existingPlayer = document.querySelector('.media-player');
+                if (existingPlayer) {
+                    // Update the player's custom colors directly
+                    updatePlayerColors(existingPlayer, primary, accent);
+                } else {
+                    // If no player exists, it will use the updated script attributes when created
+                }
+            }
+        }
+        
+        function updatePlayerColors(player, primary, accent) {
+            // Create or update the dynamic color style for this specific player
+            let dynamicPlayerStyle = document.getElementById('dynamic-player-colors');
+            if (!dynamicPlayerStyle) {
+                dynamicPlayerStyle = document.createElement('style');
+                dynamicPlayerStyle.id = 'dynamic-player-colors';
+                document.head.appendChild(dynamicPlayerStyle);
+            }
+            
+            // Calculate surface color based on primary
+            const surface = 'rgba(255, 255, 255, 0.15)';
+            const outline = 'rgba(255, 255, 255, 0.2)';
+            
+            dynamicPlayerStyle.textContent = `
+                #${player.id} .progress-played {
+                    background: linear-gradient(90deg, ${primary}, ${accent}) !important;
+                }
+                #${player.id} .btn-play-pause:hover,
+                #${player.id} .btn-play-large:hover {
+                    background: ${surface} !important;
+                    border-color: ${outline} !important;
+                }
+                #${player.id} .volume-fill {
+                    background: linear-gradient(90deg, ${primary}, ${accent}) !important;
+                }
+                #${player.id} .player-controls {
+                    color: #FFFFFF !important;
+                }
+                #${player.id} .menu-item.active {
+                    background: ${primary.replace(')', ', 0.3)')} !important;
+                }
+                #${player.id} .player-options button:hover,
+                #${player.id} .playback-rate button:hover,
+                #${player.id} .btn-speed:hover {
+                    background: ${surface} !important;
+                    border-color: ${outline} !important;
+                }
+                #${player.id} .loading-spinner .spinner {
+                    border-top-color: ${primary} !important;
+                }
+                #${player.id} .gesture-feedback {
+                    background: ${primary.replace(')', ', 0.8)')} !important;
+                }
+                #${player.id} .btn-play-large {
+                    border-color: ${outline} !important;
+                }
+                #${player.id} .btn-play-pause {
+                    border-color: ${outline} !important;
+                }
+                #${player.id} .player-options button,
+                #${player.id} .playback-rate button,
+                #${player.id} .btn-speed {
+                    border-color: ${outline} !important;
+                }
+                #${player.id} .progress-bar {
+                    background: rgba(255, 255, 255, 0.2) !important;
+                }
+                #${player.id} .progress-buffer {
+                    background: rgba(255, 255, 255, 0.3) !important;
+                }
+                #${player.id} .volume-bar {
+                    background: rgba(255, 255, 255, 0.3) !important;
+                }
+            `;
+        }
+        
+        // Initialize theme buttons
+        document.addEventListener('DOMContentLoaded', function() {
+            const themeButtons = document.querySelectorAll('.theme-btn');
+            
+            themeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    themeButtons.forEach(btn => btn.classList.remove('active'));
+                    
+                    // Add active class to clicked button
+                    this.classList.add('active');
+                    
+                    // Get theme colors
+                    const primary = this.getAttribute('data-primary');
+                    const accent = this.getAttribute('data-accent');
+                    
+                    // Apply theme
+                    applyTheme(primary, accent);
+                    
+                    // Show feedback
+                    const themeName = this.querySelector('span').textContent;
+                    showThemeChangeEffect(themeName);
+                });
+            });
+            
+            // Apply default theme
+            const defaultTheme = document.querySelector('.theme-btn.active');
+            if (defaultTheme) {
+                const primary = defaultTheme.getAttribute('data-primary');
+                const accent = defaultTheme.getAttribute('data-accent');
+                applyTheme(primary, accent);
+            }
+        });
+        
+        function showThemeChangeEffect(themeName) {
+            // Create and show a brief theme change notification
+            const notification = document.createElement('div');
+            notification.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: rgba(0, 0, 0, 0.8);
+                color: white;
+                padding: 20px 40px;
+                border-radius: 15px;
+                font-size: 18px;
+                font-weight: 500;
+                z-index: 10000;
+                backdrop-filter: blur(10px);
+                opacity: 0;
+                transition: opacity 0.3s ease;
+            `;
+            notification.textContent = `${themeName} Theme Applied!`;
+            
+            document.body.appendChild(notification);
+            
+            // Animate in
+            setTimeout(() => {
+                notification.style.opacity = '1';
+            }, 10);
+            
+            // Remove after 2 seconds
+            setTimeout(() => {
+                notification.style.opacity = '0';
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 2000);
+        }
+    </script>
+</body>
+</html>
