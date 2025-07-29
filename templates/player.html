@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Player Template</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='player.css') }}">
+</head>
+<body>
+    <div class="media-player">
+        <div class="player-container">
+            <video class="video-element" preload="metadata" crossorigin="anonymous">
+                <source src="" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            
+            <div class="player-overlay">
+                <div class="player-controls">
+                    <div class="controls-top">
+                        <div class="time-display">
+                            <span class="current-time">0:00</span>
+                            <span class="time-separator">/</span>
+                            <span class="total-time">0:00</span>
+                        </div>
+                        <div class="player-options">
+                            <button class="btn-quality" title="Quality">
+                                <i data-feather="settings"></i>
+                            </button>
+                            <button class="btn-subtitles" title="Subtitles">
+                                <i data-feather="type"></i>
+                            </button>
+                            <button class="btn-fullscreen" title="Fullscreen">
+                                <i data-feather="maximize"></i>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div class="progress-buffer"></div>
+                            <div class="progress-played"></div>
+                            <div class="progress-handle"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="controls-bottom">
+                        <div class="playback-controls">
+                            <button class="btn-play-pause" title="Play/Pause">
+                                <i data-feather="play" class="play-icon"></i>
+                                <i data-feather="pause" class="pause-icon" style="display: none;"></i>
+                            </button>
+                            <div class="volume-container">
+                                <button class="btn-volume" title="Volume">
+                                    <i data-feather="volume-2" class="volume-icon"></i>
+                                </button>
+                                <div class="volume-slider">
+                                    <div class="volume-bar">
+                                        <div class="volume-fill"></div>
+                                        <div class="volume-handle"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="playback-rate">
+                            <button class="btn-speed" title="Playback Speed">1x</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="player-center">
+                    <button class="btn-play-large" title="Play">
+                        <i data-feather="play"></i>
+                    </button>
+                </div>
+                
+                <div class="loading-spinner" style="display: none;">
+                    <div class="spinner"></div>
+                </div>
+                
+                <div class="gesture-feedback" style="display: none;">
+                    <div class="feedback-icon"></div>
+                    <div class="feedback-text"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script>
+        feather.replace();
+    </script>
+</body>
+</html>
